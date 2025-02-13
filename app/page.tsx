@@ -186,8 +186,16 @@ const EarningsEstimator = () => {
         throw new Error('Failed to submit form');
       }
 
+      // Convert form data to EarningsData type
+      const earningsData: EarningsData = {
+        zipCode: formData.zipCode,
+        bedrooms: Number(formData.bedrooms),
+        bathrooms: Number(formData.bathrooms),
+        propertyType: formData.propertyType
+      };
+
       // Calculate earnings after successful form submission
-      const earnings = calculateEarnings(formData);
+      const earnings = calculateEarnings(earningsData);
       setEstimate(earnings);
       setEmailSubmitted(true);
     } catch (error) {
