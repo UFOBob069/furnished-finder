@@ -74,8 +74,25 @@ const Navbar = () => {
   );
 };
 
+interface FormData {
+  zipCode: string;
+  bedrooms: string;
+  bathrooms: string;
+  propertyType: 'apartment' | 'house' | 'condo';
+  email: string;
+  phone: string;
+  amenities: string[];
+}
+
+interface EarningsData {
+  zipCode: string;
+  bedrooms: number;
+  bathrooms: number;
+  propertyType: keyof typeof PROPERTY_TYPE_MULTIPLIER;
+}
+
 const EarningsEstimator = () => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     zipCode: '',
     bedrooms: '',
     bathrooms: '',
@@ -85,12 +102,11 @@ const EarningsEstimator = () => {
     amenities: [],
   });
 
-  const [showEstimate, setShowEstimate] = useState(false);
   const [estimate, setEstimate] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [emailSubmitted, setEmailSubmitted] = useState(false);
 
-  const calculateEarnings = (data: any) => {
+  const calculateEarnings = (data: EarningsData) => {
     // Get rental rate data for the ZIP code
     const rentalRate = getRentalRateByZip(data.zipCode);
     
@@ -174,7 +190,6 @@ const EarningsEstimator = () => {
       const earnings = calculateEarnings(formData);
       setEstimate(earnings);
       setEmailSubmitted(true);
-      setShowEstimate(true);
     } catch (error) {
       console.error('Error submitting form:', error);
       alert('Failed to submit form. Please try again.');
@@ -628,7 +643,7 @@ const EarningsEstimator = () => {
                       <p className="text-sm text-gray-600">Property Owner in Denver</p>
                     </div>
                   </div>
-                  <p className="text-gray-700">"Switched from short-term rentals to Furnished Finder and doubled my net income. The longer stays mean less work for me too!"</p>
+                  <p className="text-gray-700">&quot;Switched from short-term rentals to Furnished Finder and doubled my net income. The longer stays mean less work for me too!&quot;</p>
                 </CardContent>
               </Card>
 
@@ -643,7 +658,7 @@ const EarningsEstimator = () => {
                       <p className="text-sm text-gray-600">Property Owner in Austin</p>
                     </div>
                   </div>
-                  <p className="text-gray-700">"The quality of tenants is outstanding. Having healthcare professionals as long-term guests gives me peace of mind."</p>
+                  <p className="text-gray-700">&quot;The quality of tenants is outstanding. Having healthcare professionals as long-term guests gives me peace of mind.&quot;</p>
                 </CardContent>
               </Card>
 
@@ -658,7 +673,7 @@ const EarningsEstimator = () => {
                       <p className="text-sm text-gray-600">Property Owner in Seattle</p>
                     </div>
                   </div>
-                  <p className="text-gray-700">"The flat annual fee makes such a difference in my profits. No more watching my earnings disappear to booking fees!"</p>
+                  <p className="text-gray-700">&quot;The flat annual fee makes such a difference in my profits. No more watching my earnings disappear to booking fees!&quot;</p>
                 </CardContent>
               </Card>
             </div>
