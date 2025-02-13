@@ -362,8 +362,8 @@ const EarningsEstimator = () => {
                         />
                       </div>
                     </div>
-                    <p className="text-xs text-gray-500">
-                      We'll send your detailed earnings report to this email address.
+                    <p className="text-gray-600">
+                      We&apos;ll send your detailed earnings report to this email address.
                     </p>
                   </div>
 
