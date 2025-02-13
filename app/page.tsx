@@ -91,6 +91,30 @@ interface EarningsData {
   propertyType: keyof typeof PROPERTY_TYPE_MULTIPLIER;
 }
 
+interface EstimateData {
+  furnishedFinder: {
+    monthlyGross: number;
+    annualFee: number;
+    monthlyNet: number;
+  };
+  competitors: {
+    airbnb: {
+      monthlyGross: number;
+      hostFees: number;
+      serviceFees: number;
+      totalFees: number;
+      monthlyNet: number;
+    };
+    vrbo: {
+      monthlyGross: number;
+      hostFees: number;
+      serviceFees: number;
+      totalFees: number;
+      monthlyNet: number;
+    };
+  };
+}
+
 const EarningsEstimator = () => {
   const [formData, setFormData] = useState<FormData>({
     zipCode: '',
@@ -102,11 +126,11 @@ const EarningsEstimator = () => {
     amenities: [],
   });
 
-  const [estimate, setEstimate] = useState(null);
+  const [estimate, setEstimate] = useState<EstimateData | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [emailSubmitted, setEmailSubmitted] = useState(false);
 
-  const calculateEarnings = (data: EarningsData) => {
+  const calculateEarnings = (data: EarningsData): EstimateData => {
     // Get rental rate data for the ZIP code
     const rentalRate = getRentalRateByZip(data.zipCode);
     
@@ -147,6 +171,7 @@ const EarningsEstimator = () => {
       monthlyNet: monthlyRate * 0.80  // Net after all fees (100% - 20%)
     };
 
+    // Return type matches EstimateData interface
     return {
       furnishedFinder: furnishedFinderRate,
       competitors: {
