@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/app/components/ui/card';
 import { Input } from '@/app/components/ui/input';
 import { Button } from '@/app/components/ui/button';
@@ -9,6 +9,7 @@ import ClientOnly from './components/ClientOnly';
 import { getRentalRateByZip } from '@/data/rental-rates';
 import Image from 'next/image';
 import Link from 'next/link';
+import confetti from 'canvas-confetti';
 
 const PROPERTY_TYPE_MULTIPLIER = {
   apartment: 1.0,
@@ -130,6 +131,8 @@ const EarningsEstimator = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [emailSubmitted, setEmailSubmitted] = useState(false);
 
+  const resultsRef = useRef<HTMLDivElement>(null);
+
   const calculateEarnings = (data: EarningsData): EstimateData => {
     // Get rental rate data for the ZIP code
     const rentalRate = getRentalRateByZip(data.zipCode);
@@ -223,6 +226,23 @@ const EarningsEstimator = () => {
       const earnings = calculateEarnings(earningsData);
       setEstimate(earnings);
       setEmailSubmitted(true);
+
+      // Wait for state to update
+      setTimeout(() => {
+        // Trigger confetti
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.6 }
+        });
+
+        // Smooth scroll to results
+        resultsRef.current?.scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }, 100);
+
     } catch (error) {
       console.error('Error submitting form:', error);
       alert('Failed to submit form. Please try again.');
@@ -426,7 +446,10 @@ const EarningsEstimator = () => {
 
         {/* Results Section - Only show when there are results */}
         {emailSubmitted && estimate && (
-          <div className="space-y-8 animate-fadeIn mt-16">
+          <div 
+            ref={resultsRef} 
+            className="space-y-8 animate-fadeIn mt-16"
+          >
             {/* Earnings Comparison */}
             <Card className="bg-gradient-to-br from-green-50 to-blue-50 shadow-lg">
               <CardHeader>
