@@ -247,10 +247,14 @@ const EarningsEstimator = () => {
         <div className="flex flex-col lg:flex-row gap-8 items-center lg:items-start min-h-[80vh]">
           {/* Left Side - Headline and Description */}
           <div className="lg:w-1/2 lg:sticky lg:top-8 space-y-6 lg:pt-20">
-            <h1 className="text-5xl font-bold text-gray-900 leading-tight">
-              Maximize Your <span className="text-blue-600">Rental Income</span> with Furnished Finder
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
+              <div>Maximize Your</div>
+              <div>Rental Income</div>
+              <div className="mt-2">
+                with <span className="text-blue-600">Furnished Finder</span>
+              </div>
             </h1>
-            <p className="text-xl text-gray-600 max-w-xl">
+            <p className="text-lg md:text-xl text-gray-600 max-w-xl">
               Join thousands of property owners earning more with longer-term rentals. 
               Calculate your potential earnings and see how we compare to other platforms.
             </p>
@@ -776,29 +780,29 @@ const EarningsEstimator = () => {
                 </div>
 
                 {/* Right side - Gradient */}
-                <div className="relative h-64 md:h-auto bg-gradient-to-r from-blue-600 to-blue-800">
-                  <div className="absolute inset-0 flex flex-col justify-center p-8 text-white space-y-4">
+                <div className="relative h-auto min-h-[300px] md:h-auto bg-gradient-to-r from-blue-600 to-blue-800">
+                  <div className="absolute inset-0 flex flex-col justify-center p-6 md:p-8 text-white space-y-4">
                     <div className="space-y-4">
-                      <h3 className="text-3xl font-bold">
+                      <h3 className="text-2xl md:text-3xl font-bold">
                         Your Potential Earnings
                       </h3>
-                      <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
-                        <p className="text-4xl font-bold">
+                      <div className="bg-white/10 rounded-lg p-3 md:p-4 backdrop-blur-sm">
+                        <p className="text-3xl md:text-4xl font-bold">
                           {formatCurrency(estimate.furnishedFinder.monthlyNet)}
                         </p>
                         <p className="text-sm text-blue-100">Estimated Monthly Net Income</p>
                       </div>
-                      <div className="space-y-2">
+                      <div className="space-y-2 text-sm md:text-base">
                         <div className="flex items-center gap-2">
-                          <Check className="w-5 h-5 text-blue-300" />
+                          <Check className="w-4 h-4 md:w-5 md:h-5 text-blue-300" />
                           <span>No booking fees or commissions</span>
                         </div>
                         <div className="flex items-center gap-2">
-                          <Check className="w-5 h-5 text-blue-300" />
+                          <Check className="w-4 h-4 md:w-5 md:h-5 text-blue-300" />
                           <span>Longer stays, less turnover</span>
                         </div>
                         <div className="flex items-center gap-2">
-                          <Check className="w-5 h-5 text-blue-300" />
+                          <Check className="w-4 h-4 md:w-5 md:h-5 text-blue-300" />
                           <span>Direct communication with tenants</span>
                         </div>
                       </div>
